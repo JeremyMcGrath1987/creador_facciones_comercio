@@ -1,14 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Information from "../views/Information.vue";
+import FactionList from "../views/FactionList.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Information",
-    component: Information
+    name: "FactionList",
+    component: FactionList
   },
   {
     path: "/moneymanagement",
@@ -16,14 +16,15 @@ const routes = [
     component: () => import("../views/MoneyManagement")
   },
   {
-    path: "/filesemployees",
-    name: "FilesEmployees",
-    component: () => import("../views/FilesEmployees")
+    
+    path: "/FactionConfiguration",
+    name: "FactionConfiguration",
+    component: () => import("../views/FactionConfiguration")
   },
   {
-    path: "/citizen",
-    name: "Citizen",
-    component: () => import("../views/Citizen")
+    path: "/factioncreation",
+    name: "FactionCreation",
+    component: () => import("../views/FactionCreation")
   }
 ];
 

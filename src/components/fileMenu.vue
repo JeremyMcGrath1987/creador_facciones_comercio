@@ -1,5 +1,5 @@
 <template>
-  <ul class="file-details mt-4 w-48">
+  <ul class="file-details mt-4 w-64">
     <!-- <li class="my-10">
       <a
         @click="goto('Information')"
@@ -11,14 +11,12 @@
       >
     </li> -->
     <li class="my-10">
-      <a
-        @click="goto('FilesEmployees')"
-        class="hover:text-gray-500 cursor-pointer"
-        :class="{
-          'border-b-2 border-panel-normal': active === 'files'
-        }"
-        >Lista Empresas</a
-      >
+      <button
+      class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 px-4 ml-6 border border-panel-light hover:border-gray-500"
+      @click="goto('FactionCreation')"
+    >
+      CREAR UNA EMPRESA
+    </button> 
     </li>
     <!-- <li class="my-10">
       <a

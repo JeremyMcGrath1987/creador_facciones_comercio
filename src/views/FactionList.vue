@@ -69,18 +69,18 @@
             <tr></tr>
             <tr
               class="border-l border-r border-panel-dark"
-              v-for="(empleado, index) in filteredList"
+              v-for="(empresa, index) in filteredList"
               :key="index"
-              :file="empleado"
+              :file="empresa"
             >
               <td></td>
-              <td class="px-2 py-2">{{ empleado.name }}</td>
-              <td class="px-2 py-2">{{ empleado.id }}</td>
+              <td class="px-2 py-2">{{ empresa.name }}</td>
+              <td class="px-2 py-2">{{ empresa.id }}</td>
               <td class="px-8 py-2">
                 <button
                   :value="index"
                   class="button-dismiss border-panel-light hover:text-gray-500"
-                  @click="showSure(empleado.id, index, empleado.name)"
+                  @click=" id=empresa.id, goto('FactionConfiguration') "
                 >
                   Configurar
                 </button>
@@ -115,7 +115,7 @@ export default {
   async mounted() {
     /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
     /* // eslint-disable-next-line no-undef
-    mp.trigger("callServerEvent","getFaccion"); */
+    mp.trigger("callServerEvent","getFaccion",{id: this.id}); */
     await this.$store.dispatch("loadingScreen/ISLOADING", false);
   },
   computed: {
@@ -124,10 +124,17 @@ export default {
         let d = resultado.name.toLowerCase() + " " + resultado.id.toLowerCase();
         let s = this.search.toLowerCase();
         return d.includes(s);
+        
       });
     },
   },
   methods: {
+    goto: async function(route) {
+      if (route !== this.$route.name) {
+        /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
+        await this.$router.push({ name: route });
+      }
+    },
     showSure: function (id, index, name) {
       return (
         (this.show = true),
@@ -192,6 +199,6 @@ tr:nth-child(odd) {
   outline: none;
 }
 .separation {
-  margin-left: 11.4rem;
+  margin-left: 2.4rem;
 }
 </style>

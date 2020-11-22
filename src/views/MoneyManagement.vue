@@ -44,9 +44,9 @@
       </button>
     </div>
     <div class="file-details-content flex flex-row">
-      <div class="flex flex-wrap p-4">
+      <!-- <div class="flex flex-wrap p-4">
         <file-menu active="moneymanagement" />
-      </div>
+      </div> -->
       <div class="file-content p-4 flex flex-col w-1/2">
         <table class="border-b border-panel-dark">
           <tbody>
@@ -141,10 +141,10 @@
   </div>
 </template>
 <script>
-import fileMenu from "../components/fileMenu";
+/* import fileMenu from "../components/fileMenu"; */
 export default {
   name: "moneymanagement",
-  components: { fileMenu },
+  /* components: { fileMenu }, */
   data: () => {
     return {
       labelRank: "",
