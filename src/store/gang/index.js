@@ -21,33 +21,33 @@ export default {
       _ranks: [
         {
           id: 5,
-          name: "cadet",
-          label: "Cadete",
-          money: "$300"
+          name: "operario",
+          label: "Operario",
+          money: 250
         },
         {
           id: 45,
           name: "officer",
           label: "Oficial",
-          money: "$400"
+          money: 300
         },
         {
           id: 17,
           name: "sergeant",
           label: "Sargento",
-          money: "$400"
+          money: 350
         },
         {
           id: 8,
           name: "lieutenant",
           label: "Teniente",
-          money: "$400"
+          money: 400
         },
 {
           id: 456,
           name: "cadet",
           label: "Inspector",
-          money: "$300"
+          money: 450
         },
         {
           id: 425,
