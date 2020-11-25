@@ -10,7 +10,7 @@
         <file-menu active="files" />
       </div> -->
       <div class="file-content py-4 pr-2 flex flex-col w-1/2 separation">
-      <label>Nombre Empresa</label>
+        <label>Nombre Empresa</label>
         <input
           class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
           type="text"
@@ -23,7 +23,7 @@
           v-model="nameFaction"
           placeholder="INTRODUCE NOMBRE RANGO"
         />
-        <input
+        <!-- <input
           class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
           type="text"
           v-model="rankNameFaction1"
@@ -112,7 +112,86 @@
           type="text"
           v-model="rankMoneyFaction5"
           placeholder="INTRODUCE NOMBRE RANGO"
-        />
+        /> -->
+        <div
+          class="addmoney input_rank bg-panel-dark border border-panel-light"
+        >
+          <p class="appearance-none text-white bg-panel-dark w-full p-2">
+            crear rango:
+          </p>
+          <input
+            class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
+            type="text"
+            placeholder="NOMBRE RANGO"
+            v-model="rankLabel"
+          />
+          <input
+            class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
+            type="text"
+            placeholder="RANGO ABREVIADO"
+            v-model="rankName"
+          />
+          <input
+            class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
+            type="number"
+            placeholder="SUELDO RANGO"
+            v-model="rankMoney"
+          />
+          <button
+            class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-4 border border-panel-light hover:border-gray-500"
+            @click="rankCreated(rankName, rankLabel, rankMoney)"
+          >
+            CREAR RANGO
+          </button>
+        </div>
+        <div class="file-content p-4 flex flex-col w-1/2">
+          <table
+            class="border-b border-panel-dark"
+            v-if="
+              Array.isArray(singleFaction._ranks) &&
+              singleFaction._ranks.length > 0
+            "
+          >
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">Rango</td>
+                <td class="px-4 py-2">Sueldo</td>
+                <td></td>
+              </tr>
+              <tr
+                class="border-l border-r border-panel-dark"
+                v-for="(rango, index) in singleFaction._ranks"
+                :key="index"
+              >
+                <td class="px-4 py-2">{{ rango.label }}</td>
+                <td class="px-4 py-2 w-1/6">{{ rango.money }} $</td>
+                <td class="px-4 py-2 w-1/6">
+                  <button
+                    class="button_rank border-panel-light hover:text-gray-500"
+                    @click="
+                      (editRank = true),
+                        (categoryRank = rango.id),
+                        (labelRank = rango.label),
+                        (indice = index)
+                    "
+                  >
+                    EDITAR RANGO
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="border-panel-dark" v-else>
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">Rango</td>
+                <td class="px-4 py-2">Sueldo</td>
+                <td></td>
+              </tr>
+              <div class="px-4 py-2 w-56"><p>no hay rangos creados</p></div>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -129,7 +208,10 @@ export default {
     return {
       nameFaction: "",
       labelFaction: "",
-      rankFaction: [],
+      rankLabel: "",
+      rankName: "",
+      rankMoney: "",
+      /* rankFaction: [],
       rankNameFaction1: "",
       rankNameFaction2: "",
       rankNameFaction3: "",
@@ -144,16 +226,153 @@ export default {
       rankMoneyFaction2: 0,
       rankMoneyFaction3: 0,
       rankMoneyFaction4: 0,
-      rankMoneyFaction5: 0,
-      
+      rankMoneyFaction5: 0, */
     };
   },
   async mounted() {
     await this.$store.dispatch("loadingScreen/ISLOADING", false);
-    return this.nameFaction=this.singleFaction._name, this.labelFaction=this.singleFaction._label, this.rankNameFaction1=this.singleFaction._ranks[0].name, this.rankNameFaction2=this.singleFaction._ranks[1].name, this.rankNameFaction3=this.singleFaction._ranks[2].name, this.rankNameFaction4=this.singleFaction._ranks[3].name, this.rankNameFaction5=this.singleFaction._ranks[4].name, this.rankLabelFaction1=this.singleFaction._ranks[0].label, this.rankLabelFaction2=this.singleFaction._ranks[1].label, this.rankLabelFaction3=this.singleFaction._ranks[2].label, this.rankLabelFaction4=this.singleFaction._ranks[3].label, this.rankLabelFaction5=this.singleFaction._ranks[4].label, this.rankMoneyFaction1=this.singleFaction._ranks[0].money, this.rankMoneyFaction2=this.singleFaction._ranks[1].money, this.rankMoneyFaction3=this.singleFaction._ranks[2].money, this.rankMoneyFaction4=this.singleFaction._ranks[3].money, this.rankMoneyFaction5=this.singleFaction._ranks[4].money ;
+    return (
+      (this.nameFaction = this.singleFaction._name),
+      (this.labelFaction = this.singleFaction._label) /* ,
+      (this.rankNameFaction1 = this.singleFaction._ranks[0].name),
+      (this.rankNameFaction2 = this.singleFaction._ranks[1].name),
+      (this.rankNameFaction3 = this.singleFaction._ranks[2].name),
+      (this.rankNameFaction4 = this.singleFaction._ranks[3].name),
+      (this.rankNameFaction5 = this.singleFaction._ranks[4].name),
+      (this.rankLabelFaction1 = this.singleFaction._ranks[0].label),
+      (this.rankLabelFaction2 = this.singleFaction._ranks[1].label),
+      (this.rankLabelFaction3 = this.singleFaction._ranks[2].label),
+      (this.rankLabelFaction4 = this.singleFaction._ranks[3].label),
+      (this.rankLabelFaction5 = this.singleFaction._ranks[4].label),
+      (this.rankMoneyFaction1 = this.singleFaction._ranks[0].money),
+      (this.rankMoneyFaction2 = this.singleFaction._ranks[1].money),
+      (this.rankMoneyFaction3 = this.singleFaction._ranks[2].money),
+      (this.rankMoneyFaction4 = this.singleFaction._ranks[3].money),
+      (this.rankMoneyFaction5 = this.singleFaction._ranks[4].money) */
+    );
+  },
+  methods: {
+    rankCreated: function (name, label, money) {
+      if (
+        name.trim() !== "" &&
+        label.trim() !== "" &&
+        parseInt(money.trim()) >= 0
+      ) {
+        console.log(name, label, parseInt(money));
+        const rank = {
+          name: name,
+          label: label,
+          money: parseInt(money),
+        };
+        this.$store.dispatch("RANKCREATED", rank);
+        console.log(JSON.stringify(this.singleFaction._ranks));
+        this.rankLabel = "";
+        this.rankName = "";
+        this.rankMoney = "";
+      }
+    },
   },
 };
 </script>
 <style lang="scss">
+.file-details {
+  li {
+    border: none;
+    padding: 0;
+    display: block;
+  }
+}
+tr:nth-child(odd) {
+  border: 1px solid #000000;
+}
+.button-withdraw {
+  width: 101px;
+  height: 20px;
+  border: 1px solid #000000;
+  margin-left: 65px;
+  font-size: 12px;
+}
+.button-withdraw:focus {
+  outline: none;
+}
+.button-add {
+  width: 112px;
+  height: 20px;
+  border: 1px solid #000000;
+  margin-left: 15px;
+  font-size: 12px;
+}
+.button-add:focus {
+  outline: none;
+}
+.button-remove-note {
+  width: 62px;
+  height: 20px;
+  border: 1px solid #000000;
+}
+.button-remove-note:focus {
+  outline: none;
+}
+.input_money {
+  font-size: 1.1em;
+  padding: 15px;
+  text-align: center;
+}
 
+.input_rank {
+  font-size: 1.1em;
+  padding: 15px;
+  text-align: center;
+}
+
+.addmoney {
+  /* position: absolute;
+  top: 210px;
+  left: 300px; */
+  width: 709px;
+}
+
+.withdrawMoney {
+  /* position: absolute;
+  top: 385px;
+  left: 300px; */
+  width: 550px;
+}
+
+.input_money input {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  margin-right: 18px;
+}
+.input_rank input {
+  width: 151px;
+  height: 50px;
+  text-align: center;
+  margin-right: 18px;
+  display: inline;
+}
+
+.input_money button {
+  margin: 15px 15px 0 15px;
+}
+
+.input_rank button {
+  margin: 15px 15px 0 15px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.button_rank {
+  width: 82px;
+  height: 20px;
+  border: 1px solid #000000;
+  margin-left: 65px;
+  font-size: 12px;
+}
 </style>
+

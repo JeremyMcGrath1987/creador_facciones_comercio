@@ -16,45 +16,10 @@ export default {
     data:
     {
       _id: 2,
-      _name: "lspd",
-      _label: "LSPD",
+      _name: "gutang",
+      _label: "Taller Gutang",
       _ranks: [
-        {
-          id: 5,
-          name: "operario",
-          label: "Operario",
-          money: 250
-        },
-        {
-          id: 45,
-          name: "officer",
-          label: "Oficial",
-          money: 300
-        },
-        {
-          id: 17,
-          name: "sergeant",
-          label: "Sargento",
-          money: 350
-        },
-        {
-          id: 8,
-          name: "lieutenant",
-          label: "Teniente",
-          money: 400
-        },
-{
-          id: 456,
-          name: "cadet",
-          label: "Inspector",
-          money: 450
-        },
-        {
-          id: 425,
-          name: "officer",
-          label: "Detective",
-          money: "$400"
-        },
+        
       ],
       _spawnVehicles: {
         Station1: []
@@ -254,6 +219,9 @@ export default {
     },
     EDITRANK: (context, rank) => {
       context.commit("editRank", rank);
+    },
+    RANKCREATED: (context, rank) => {
+      context.commit("rankCreated", rank);
     }
   },
   mutations: {
@@ -274,6 +242,9 @@ export default {
     editRank: (state, rank) => {
       state.data._ranks[rank.index].money = rank.money;
       state.data._ranks[rank.index].label = rank.label;
+    },
+    rankCreated:(state, rank) => {
+      state.data._ranks.push(rank);
     }
   }
 };
