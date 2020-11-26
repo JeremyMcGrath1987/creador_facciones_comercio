@@ -80,7 +80,7 @@
               <td class="px-4 py-2">
                 <button
                   class="button-contract border-panel-normal hover:text-gray-500"
-                  @click="contract(name, label)"
+                  @click="factionCreated(name, label)"
                 >
                   CREAR EMPRESA
                 </button>
@@ -113,9 +113,14 @@ export default {
     };
   },
   methods: {
-    contract: function (name, label) {
+    factionCreated: function (name, label) {
       if (name.trim() !== "" && label.trim() !== "") {
-        console.log(name, label);
+        const faction = {
+          name: name,
+          label: label
+        };
+        console.log(faction);
+        this.$store.dispatch("EDITNAME", faction);
         this.success = true;
         /* // eslint-disable-next-line no-undef
           mp.trigger("callServerEvent","crearFaccion",{name: this.name , label: this.label}); */

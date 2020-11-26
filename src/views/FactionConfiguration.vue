@@ -5,134 +5,69 @@
         {{ singleFaction._label }}
       </h1>
     </div>
-    <div class="file-details-content flex flex-row">
+    <div class="file-details-content flex flex-row ">
       <!-- <div class="flex flex-wrap py-4 pl-4">
         <file-menu active="files" />
       </div> -->
-      <div class="file-content py-4 pr-2 flex flex-col w-1/2 separation">
-        <label>Nombre Empresa</label>
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="labelFaction"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="nameFaction"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <!-- <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankNameFaction1"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankNameFaction2"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankNameFaction3"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankNameFaction4"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankNameFaction5"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankLabelFaction1"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankLabelFaction2"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankLabelFaction3"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankLabelFaction4"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankLabelFaction5"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankMoneyFaction1"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankMoneyFaction2"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankMoneyFaction3"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankMoneyFaction4"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        />
-        <input
-          class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
-          type="text"
-          v-model="rankMoneyFaction5"
-          placeholder="INTRODUCE NOMBRE RANGO"
-        /> -->
-        <div
+      <div class="file-content py-4 pr-2 flex flex-col w-1/2 separation ml-64">
+        <div class="file-content p-4 flex flex-col w-full">
+          <table class="border-b border-panel-dark">
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">NOMBRE EMPRESA</td>
+              </tr>
+              <tr class="border-l border-r border-panel-dark">
+                <td class="px-4 py-2">
+                  <input
+                    class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
+                    type="text"
+                    v-model="labelFaction"
+                    placeholder="INTRODUCE NOMBRE RANGO"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="file-content p-4 flex flex-col w-full">
+          <table class="border-b border-panel-dark">
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">NOMBRE EMPRESA abreviado</td>
+              </tr>
+              <tr class="border-l border-r border-panel-dark">
+                <td class="px-4 py-2">
+                  <input
+                    class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
+                    type="text"
+                    v-model="nameFaction"
+                    placeholder="INTRODUCE NOMBRE RANGO ABREVIADO"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div
           class="addmoney input_rank bg-panel-dark border border-panel-light"
         >
           <p class="appearance-none text-white bg-panel-dark w-full p-2">
             crear rango:
           </p>
           <input
-            class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
+            class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
             type="text"
             placeholder="NOMBRE RANGO"
             v-model="rankLabel"
           />
           <input
-            class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
+            class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
             type="text"
             placeholder="RANGO ABREVIADO"
             v-model="rankName"
           />
           <input
-            class="appearance-none bg-panel-dark border border-panel-light w-full p-2 focus:outline-none placeholder-gray-700"
+            class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
             type="number"
             placeholder="SUELDO RANGO"
             v-model="rankMoney"
@@ -143,6 +78,53 @@
           >
             CREAR RANGO
           </button>
+        </div> -->
+        <div class="file-content p-4 flex flex-col w-full">
+          <!-- <label> CREAR RANGO:</label> -->
+          <table class="border-b border-panel-dark">
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">nombre rango</td>
+                <td class="px-4 py-2">rango abreviado</td>
+                <td class="px-4 py-2">sueldo rango</td>
+                <td></td>
+              </tr>
+              <tr class="border-l border-r border-panel-dark">
+                <td class="px-4 py-2">
+                  <input
+                    class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
+                    type="text"
+                    placeholder="NOMBRE RANGO"
+                    v-model="rankLabel"
+                  />
+                </td>
+                <td class="px-4 py-2 ancho">
+                  <input
+                    class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
+                    type="text"
+                    placeholder="RANGO ABREVIADO"
+                    v-model="rankName"
+                  />
+                </td>
+                <td class="px-4 py-2 ancho">
+                  <input
+                    class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
+                    type="number"
+                    placeholder="SUELDO RANGO"
+                    v-model="rankMoney"
+                  />
+                </td>
+                <td class="px-4 py-2">
+                  <button
+                    class="button-createRank border-panel-normal hover:text-gray-500"
+                    @click="rankCreated(rankName, rankLabel, rankMoney)"
+                  >
+                    CREAR RANGO
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="file-content p-4 flex flex-col w-1/2">
           <table
@@ -192,6 +174,20 @@
             </tbody>
           </table>
         </div>
+        <div class="w-250 text-center">
+          <button
+            class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-2 border border-panel-light hover:border-gray-500 w-64"
+          >
+            ACEPTAR EDITADO
+          </button>
+
+          <button
+            class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-2 border border-panel-light hover:border-gray-500 w-64 ml-4"
+            @click="goto('FactionList')"
+          >
+            CANCELAR EDITADO
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -233,22 +229,7 @@ export default {
     await this.$store.dispatch("loadingScreen/ISLOADING", false);
     return (
       (this.nameFaction = this.singleFaction._name),
-      (this.labelFaction = this.singleFaction._label) /* ,
-      (this.rankNameFaction1 = this.singleFaction._ranks[0].name),
-      (this.rankNameFaction2 = this.singleFaction._ranks[1].name),
-      (this.rankNameFaction3 = this.singleFaction._ranks[2].name),
-      (this.rankNameFaction4 = this.singleFaction._ranks[3].name),
-      (this.rankNameFaction5 = this.singleFaction._ranks[4].name),
-      (this.rankLabelFaction1 = this.singleFaction._ranks[0].label),
-      (this.rankLabelFaction2 = this.singleFaction._ranks[1].label),
-      (this.rankLabelFaction3 = this.singleFaction._ranks[2].label),
-      (this.rankLabelFaction4 = this.singleFaction._ranks[3].label),
-      (this.rankLabelFaction5 = this.singleFaction._ranks[4].label),
-      (this.rankMoneyFaction1 = this.singleFaction._ranks[0].money),
-      (this.rankMoneyFaction2 = this.singleFaction._ranks[1].money),
-      (this.rankMoneyFaction3 = this.singleFaction._ranks[2].money),
-      (this.rankMoneyFaction4 = this.singleFaction._ranks[3].money),
-      (this.rankMoneyFaction5 = this.singleFaction._ranks[4].money) */
+      (this.labelFaction = this.singleFaction._label)
     );
   },
   methods: {
@@ -269,6 +250,12 @@ export default {
         this.rankLabel = "";
         this.rankName = "";
         this.rankMoney = "";
+      }
+    },
+    goto: async function (route) {
+      if (route !== this.$route.name) {
+        /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
+        await this.$router.push({ name: route });
       }
     },
   },
@@ -373,6 +360,12 @@ input[type="number"]::-webkit-outer-spin-button {
   border: 1px solid #000000;
   margin-left: 65px;
   font-size: 12px;
+}
+
+.button-createRank {
+  width: 155px;
+  height: 20px;
+  border: 1px solid #000000;
 }
 </style>
 
