@@ -61,21 +61,6 @@
                   v-model="name"
                   placeholder="ej. badu"
                 />
-                <!-- <select
-                  v-model="rank"
-                  class="border border-panel-light w-full p-2"
-                >
-                  <option disabled value="" selected>
-                    SELECCIONA UN RANGO
-                  </option>
-                  <option
-                    v-for="(rango, index) in singleFaction._ranks"
-                    :key="index"
-                    v-bind:value="rango"
-                  >
-                    {{ rango.label }} - {{ rango.money }}
-                  </option>
-                </select> -->
               </td>
               <td class="px-4 py-2">
                 <button

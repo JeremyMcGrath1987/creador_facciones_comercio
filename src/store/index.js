@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import loadingScreen from "./loadingScreen";
-import employees from "./employees";
+import factionList from "./factionList";
 import faction from "./faction"
 Vue.use(Vuex);
 
@@ -11,7 +11,7 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     loadingScreen,
-    employees,
+    factionList,
     faction
   }
 });

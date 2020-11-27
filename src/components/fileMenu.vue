@@ -1,15 +1,5 @@
 <template>
   <ul class="file-details mt-4 w-64">
-    <!-- <li class="my-10">
-      <a
-        @click="goto('Information')"
-        class="hover:text-gray-500 cursor-pointer"
-        :class="{
-          'border-b-2 border-panel-normal': active === 'information'
-        }"
-        >Información General</a
-      >
-    </li> -->
     <li class="my-10">
       <button
       class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 px-4 ml-6 border border-panel-light hover:border-gray-500"
@@ -18,24 +8,6 @@
       CREAR UNA EMPRESA
     </button> 
     </li>
-    <!-- <li class="my-10">
-      <a
-        @click="goto('MoneyManagement')"
-        class="hover:text-gray-500 cursor-pointer"
-        :class="{ 'border-b-2 border-panel-normal': active === 'moneymanagement' }"
-        >Gestión Dinero</a
-      >
-    </li> -->
-    <!-- <li class="my-10">
-      <a
-        @click="goto('Citizen')"
-        class="hover:text-gray-500 cursor-pointer"
-        :class="{
-          'border-b-2 border-panel-normal': active === 'citizen'
-        }"
-        >Contratar Miembro</a
-      >
-    </li> -->
   </ul>
 </template>
 <script>

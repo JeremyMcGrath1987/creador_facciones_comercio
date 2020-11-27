@@ -3,50 +3,6 @@
     <div class="tob-bar flex flex-row items-center w-full mt-8 py-2">
       <topbar />
     </div>
-    <div class="alertSure bg-panel-dark border border-panel-light" v-if="rank">
-      <p class="appearance-none text-white bg-panel-dark w-full p-2">
-        Selecciona un rango para {{ name }}:
-      </p>
-      <div
-        class="inline-block mr-4"
-        v-for="(rango, key, index) in singleFaction._ranks"
-        :key="index"
-      >
-        <input type="radio" v-model="rankObject" v-bind:value="rango" />
-        {{ rango.label }}
-      </div>
-      <div></div>
-      <button
-        v-if="rankObject != ''"
-        class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-4 border border-panel-light hover:border-gray-500"
-        @click="rankEmployee(id, index, rankObject)"
-      >
-        ACEPTAR
-      </button>
-      <button
-        class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-4 border border-panel-light hover:border-gray-500"
-        @click="rank = false"
-      >
-        CANCELAR
-      </button>
-    </div>
-    <div class="alertSure bg-panel-dark border border-panel-light" v-if="show">
-      <p class="appearance-none text-white bg-panel-dark w-full p-2">
-        ¿Estas segura/o de echar a {{ name }}?
-      </p>
-      <button
-        class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-4 border border-panel-light hover:border-gray-500"
-        @click="dismissEmployee(id, index)"
-      >
-        ACEPTAR
-      </button>
-      <button
-        class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-4 border border-panel-light hover:border-gray-500"
-        @click="show = false"
-      >
-        CANCELAR
-      </button>
-    </div>
     <div class="file-details-content flex flex-row">
       <div class="flex flex-wrap py-4 pl-4">
         <file-menu active="files" />
@@ -58,13 +14,18 @@
           type="text"
           placeholder="Buscar empresa"
         />
-        <table class="border-b border-panel-dark">
+        <table class="border-b border-panel-dark"
+        v-if="
+              
+              filteredList.length > 0
+            "
+        >
           <tbody>
             <tr class="border border-panel-dark font-bold bg-panel-dark">
               <td></td>
               <td class="px-1 py-2">Nombre de Empresa</td>
               <td class="px-1 py-2">ID de Empresa</td>
-              <td class="px-1 py-2">Rango en la banda</td>
+              <td class="px-1 py-2"></td>
             </tr>
             <tr></tr>
             <tr
@@ -80,7 +41,9 @@
                 <button
                   :value="index"
                   class="button-dismiss border-panel-light hover:text-gray-500"
-                  @click=" id=empresa.id, goto('FactionConfiguration') "
+                  @click="
+                    factionConfig(empresa.id)
+                  "
                 >
                   Configurar
                 </button>
@@ -88,6 +51,21 @@
             </tr>
           </tbody>
         </table>
+        <table class="border-panel-dark"
+        v-else>
+          <tbody>
+            <tr class="border border-panel-dark font-bold bg-panel-dark">
+              <td></td>
+              <td class="px-1 py-2">Nombre de Empresa</td>
+              <td class="px-1 py-2">ID de Empresa</td>
+              <td class="px-1 py-2"></td>
+            </tr>
+            <tr></tr>
+            <td></td>
+            <div class="px-1 py-2"><p>no hay coincidencias en la búsqueda.</p></div>
+          </tbody>
+        </table>
+        
       </div>
     </div>
   </div>
@@ -103,70 +81,31 @@ export default {
   mixins: [formatPrice, singleFaction],
   data: () => {
     return {
-      search: "",
-      rankObject: "",
-      rank: false,
-      show: false,
-      id: "",
-      index: -1,
-      name: "",
+      search: ""
     };
   },
   async mounted() {
     /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
     /* // eslint-disable-next-line no-undef
-    mp.trigger("callServerEvent","getFaccion",{id: this.id}); */
+    mp.trigger("callServerEvent","getAllFactions"); */
     await this.$store.dispatch("loadingScreen/ISLOADING", false);
   },
   computed: {
     filteredList() {
-      return this.$store.state.employees.data.filter((resultado) => {
+      return this.$store.state.factionList.data.filter((resultado) => {
         let d = resultado.name.toLowerCase() + " " + resultado.id.toLowerCase();
         let s = this.search.toLowerCase();
         return d.includes(s);
-        
       });
     },
   },
   methods: {
-    goto: async function(route) {
-      if (route !== this.$route.name) {
-        /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
-        await this.$router.push({ name: route });
-      }
-    },
-    showSure: function (id, index, name) {
-      return (
-        (this.show = true),
-        (this.id = id),
-        (this.index = index),
-        (this.name = name)
-      );
-    },
-    showRank: function (id, index, name) {
-      return (
-        (this.rank = true),
-        (this.id = id),
-        (this.index = index),
-        (this.name = name)
-      );
-    },
-    rankEmployee: function (id, index, rank) {
+    factionConfig: async function (id) {
       /* // eslint-disable-next-line no-undef
-      mp.trigger("changeRankGang", id, rank.id); */
-      const info = {
-        index: index,
-        rank: rank.label,
-      };
-      this.$store.dispatch("employees/ASCENDEMPLOYEE", info);
-
-      return (this.rank = false);
-    },
-    dismissEmployee: function (id, index) {
-      /* // eslint-disable-next-line no-undef
-      mp.trigger("despedirGang", id); */
-      this.$store.dispatch("employees/DISMISSEMPLOYEE", index);
-      return (this.show = false);
+      mp.trigger("callServerEvent","getFaccion",{id: id}); */
+      /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
+      await this.$router.push({ name: "FactionConfiguration"});
+      console.log(id);
     },
   },
 };

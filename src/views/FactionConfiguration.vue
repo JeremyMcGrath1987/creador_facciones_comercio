@@ -5,11 +5,11 @@
         {{ singleFaction._label }}
       </h1>
     </div>
-    <div class="file-details-content flex flex-row ">
+    <div class="file-details-content flex flex-row">
       <!-- <div class="flex flex-wrap py-4 pl-4">
         <file-menu active="files" />
       </div> -->
-      <div class="file-content py-4 pr-2 flex flex-col w-1/2 separation ml-64">
+      <div class="file-content py-4 flex flex-col w-1/2 separation margenIzqContenido">
         <div class="file-content p-4 flex flex-col w-full">
           <table class="border-b border-panel-dark">
             <tbody>
@@ -48,38 +48,7 @@
             </tbody>
           </table>
         </div>
-        <!-- <div
-          class="addmoney input_rank bg-panel-dark border border-panel-light"
-        >
-          <p class="appearance-none text-white bg-panel-dark w-full p-2">
-            crear rango:
-          </p>
-          <input
-            class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
-            type="text"
-            placeholder="NOMBRE RANGO"
-            v-model="rankLabel"
-          />
-          <input
-            class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
-            type="text"
-            placeholder="RANGO ABREVIADO"
-            v-model="rankName"
-          />
-          <input
-            class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
-            type="number"
-            placeholder="SUELDO RANGO"
-            v-model="rankMoney"
-          />
-          <button
-            class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-4 border border-panel-light hover:border-gray-500"
-            @click="rankCreated(rankName, rankLabel, rankMoney)"
-          >
-            CREAR RANGO
-          </button>
-        </div> -->
-        <div class="file-content p-4 flex flex-col w-full">
+        <div class="file-content p-4 flex flex-col w-full margenIzq">
           <!-- <label> CREAR RANGO:</label> -->
           <table class="border-b border-panel-dark">
             <tbody>
@@ -126,7 +95,7 @@
             </tbody>
           </table>
         </div>
-        <div class="file-content p-4 flex flex-col w-1/2">
+        <div class="file-content p-4 flex flex-col w-1/2 ml-20">
           <table
             class="border-b border-panel-dark"
             v-if="
@@ -146,7 +115,7 @@
                 :key="index"
               >
                 <td class="px-4 py-2">{{ rango.label }}</td>
-                <td class="px-4 py-2 w-1/6">{{ rango.money }} $</td>
+                <td class="px-4 py-2 w-1/6">{{ formatPrice(rango.money) }} $</td>
                 <td class="px-4 py-2 w-1/6">
                   <button
                     class="button_rank border-panel-light hover:text-gray-500"
@@ -170,7 +139,52 @@
                 <td class="px-4 py-2">Sueldo</td>
                 <td></td>
               </tr>
-              <div class="px-4 py-2 w-56"><p>no hay rangos creados</p></div>
+              <div class="px-4 py-2 w-56"><p>no hay rangos creados.</p></div>
+            </tbody>
+          </table>
+        </div>
+        <div class="file-content p-4 flex flex-col w-1/2">
+          <table
+            class="border-b border-panel-dark"
+            v-if="
+              Array.isArray(singleFaction._spawnVehicles.Station1) &&
+              singleFaction._spawnVehicles.Station1.length > 0
+            "
+          >
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">Vehiculos</td>
+                <td></td>
+              </tr>
+              <tr
+                class="border-l border-r border-panel-dark"
+                v-for="(vehiculo, index) in singleFaction._spawnVehicles
+                  .Station1"
+                :key="index"
+              >
+                <td class="px-4 py-2">{{ vehiculo }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="border-panel-dark" v-else>
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">Vehiculos</td>
+                <td></td>
+              </tr>
+              <div class="px-4 py-2 w-56"><p>no hay vehículos.</p></div>
+            </tbody>
+          </table>
+        </div>
+        <div class="file-content p-4 flex flex-col w-1/2">
+          <table class="border-b border-panel-dark">
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">Coordenadas</td>
+              </tr>
+              <tr class="border-l border-r border-panel-dark">
+                <td class="px-4 py-2">hay que modificar esto</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -207,22 +221,6 @@ export default {
       rankLabel: "",
       rankName: "",
       rankMoney: "",
-      /* rankFaction: [],
-      rankNameFaction1: "",
-      rankNameFaction2: "",
-      rankNameFaction3: "",
-      rankNameFaction4: "",
-      rankNameFaction5: "",
-      rankLabelFaction1: "",
-      rankLabelFaction2: "",
-      rankLabelFaction3: "",
-      rankLabelFaction4: "",
-      rankLabelFaction5: "",
-      rankMoneyFaction1: 0,
-      rankMoneyFaction2: 0,
-      rankMoneyFaction3: 0,
-      rankMoneyFaction4: 0,
-      rankMoneyFaction5: 0, */
     };
   },
   async mounted() {
@@ -247,6 +245,8 @@ export default {
         };
         this.$store.dispatch("RANKCREATED", rank);
         console.log(JSON.stringify(this.singleFaction._ranks));
+        /* // eslint-disable-next-line no-undef
+          mp.trigger("callServerEvent","crearRank",{name: name, label: label, money: money}); */
         this.rankLabel = "";
         this.rankName = "";
         this.rankMoney = "";
@@ -257,6 +257,10 @@ export default {
         /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
         await this.$router.push({ name: route });
       }
+    },
+    formatPrice: function (value) {
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
   },
 };
@@ -366,6 +370,13 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 155px;
   height: 20px;
   border: 1px solid #000000;
+}
+
+.margenIzq{
+  margin-left: -9rem;
+}
+.margenIzqContenido{
+  margin-left: 18rem;
 }
 </style>
 
