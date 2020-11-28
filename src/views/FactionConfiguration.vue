@@ -63,7 +63,7 @@
                   <input
                     class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
                     type="text"
-                    placeholder="NOMBRE RANGO"
+                    placeholder="ej. Jefe de Tienda"
                     v-model="rankLabel"
                   />
                 </td>
@@ -71,7 +71,7 @@
                   <input
                     class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
                     type="text"
-                    placeholder="RANGO ABREVIADO"
+                    placeholder="ej. jefe"
                     v-model="rankName"
                   />
                 </td>
@@ -79,7 +79,7 @@
                   <input
                     class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
                     type="number"
-                    placeholder="SUELDO RANGO"
+                    placeholder="ej. 450"
                     v-model="rankMoney"
                   />
                 </td>
@@ -182,8 +182,10 @@
               <tr class="border border-panel-dark font-bold bg-panel-dark">
                 <td class="px-4 py-2">Coordenadas</td>
               </tr>
-              <tr class="border-l border-r border-panel-dark">
-                <td class="px-4 py-2">hay que modificar esto</td>
+              <tr class="border-l border-r border-panel-dark"
+              v-for="(coordenadas, index) in singleFaction._coords"
+                :key="index">
+                <td class="px-4 py-2">{{coordenadas.type}}</td>
               </tr>
             </tbody>
           </table>
