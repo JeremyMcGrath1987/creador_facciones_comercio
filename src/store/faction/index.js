@@ -22,7 +22,9 @@ export default {
         
       ],
       _spawnVehicles: {
-        Station1: []
+        Los_Santos: [],
+        Station2: [],
+        Station3: []
       },
       _money: 456150,
       _inventory: {

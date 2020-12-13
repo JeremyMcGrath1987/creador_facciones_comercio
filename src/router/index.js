@@ -11,13 +11,8 @@ const routes = [
     component: FactionList
   },
   {
-    path: "/moneymanagement",
-    name: "MoneyManagement",
-    component: () => import("../views/MoneyManagement")
-  },
-  {
     
-    path: "/FactionConfiguration",
+    path: "/factionConfiguration",
     name: "FactionConfiguration",
     component: () => import("../views/FactionConfiguration")
   },

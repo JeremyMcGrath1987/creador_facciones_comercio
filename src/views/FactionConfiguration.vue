@@ -9,7 +9,9 @@
       <!-- <div class="flex flex-wrap py-4 pl-4">
         <file-menu active="files" />
       </div> -->
-      <div class="file-content py-4 flex flex-col w-1/2 separation margenIzqContenido">
+      <div
+        class="file-content py-4 flex flex-col w-1/2 separation margenIzqContenido"
+      >
         <div class="file-content p-4 flex flex-col w-full">
           <table class="border-b border-panel-dark">
             <tbody>
@@ -115,7 +117,9 @@
                 :key="index"
               >
                 <td class="px-4 py-2">{{ rango.label }}</td>
-                <td class="px-4 py-2 w-1/6">{{ formatPrice(rango.money) }} $</td>
+                <td class="px-4 py-2 w-1/6">
+                  {{ formatPrice(rango.money) }} $
+                </td>
                 <td class="px-4 py-2 w-1/6">
                   <button
                     class="button_rank border-panel-light hover:text-gray-500"
@@ -143,49 +147,127 @@
             </tbody>
           </table>
         </div>
-        <div class="file-content p-4 flex flex-col w-1/2">
+        <div class="file-content p-4 flex flex-col w-1/2 ml-32">
           <table
             class="border-b border-panel-dark"
-            v-if="
-              Array.isArray(singleFaction._spawnVehicles.Station1) &&
-              singleFaction._spawnVehicles.Station1.length > 0
-            "
+            v-if="Object.keys(singleFaction._spawnVehicles).length > 0"
           >
             <tbody>
               <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">Vehiculos</td>
+                <td class="px-4 py-2">Garajes</td>
                 <td></td>
               </tr>
               <tr
                 class="border-l border-r border-panel-dark"
-                v-for="(vehiculo, index) in singleFaction._spawnVehicles
-                  .Station1"
+                v-for="(value, key, index) in singleFaction._spawnVehicles"
                 :key="index"
               >
-                <td class="px-4 py-2">{{ vehiculo }}</td>
+                <td class="px-4 py-2">{{ key }}</td>
+                <td></td>
               </tr>
             </tbody>
           </table>
           <table class="border-panel-dark" v-else>
             <tbody>
               <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">Vehiculos</td>
+                <td class="px-4 py-2">Garajes</td>
                 <td></td>
               </tr>
-              <div class="px-4 py-2 w-56"><p>no hay vehículos.</p></div>
+              <div class="px-4 py-2 w-56"><p>no hay garajes.</p></div>
             </tbody>
           </table>
         </div>
-        <div class="file-content p-4 flex flex-col w-1/2">
+        <div class="file-content p-4 flex flex-col w-full margenIzq">
           <table class="border-b border-panel-dark">
             <tbody>
               <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">Coordenadas</td>
+                <td class="px-4 py-2">Tipo de punto</td>
+                <td class="px-4 py-2">Coordenadas X</td>
+                <td class="px-4 py-2">Coordenadas Y</td>
+                <td class="px-4 py-2">Coordenadas Z</td>
+                <td class="px-4 py-2 ancho">Rango Mínimo</td>
+                <td></td>
               </tr>
-              <tr class="border-l border-r border-panel-dark"
-              v-for="(coordenadas, index) in singleFaction._coords"
-                :key="index">
-                <td class="px-4 py-2">{{coordenadas.type}}</td>
+              <tr class="border-l border-r border-panel-dark">
+                <td class="px-2 py-2">
+                  <div class="w-32">
+                    <input
+                      class="inline-block mr-1"
+                      type="radio"
+                      name="tipo"
+                      v-model="punto"
+                      v-bind:value="'inventario'"
+                    />Inventario
+                  </div>
+                  <div>
+                    <input
+                      class="inline-block"
+                      type="radio"
+                      name="tipo"
+                      v-model="punto"
+                      v-bind:value="'garaje'"
+                    />
+                    Garaje
+                  </div>
+                  <div>
+                    <input
+                      class="inline-block"
+                      type="radio"
+                      name="tipo"
+                      v-model="punto"
+                      v-bind:value="'gestion'"
+                    />
+                    Gestión
+                  </div>
+                  <div>
+                    <input
+                      class="inline-block"
+                      type="radio"
+                      name="tipo"
+                      v-model="punto"
+                      v-bind:value="'ropa'"
+                    />
+                    Ropa
+                  </div>
+                </td>
+                <td class="px-4 py-2">
+                  <input
+                    class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700 inputCoords"
+                    type="number"
+                    v-model="x"
+                  />
+                </td>
+                <td class="px-4 py-2 ancho">
+                  <input
+                    class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700 inputCoords"
+                    type="number"
+                    v-model="y"
+                  />
+                </td>
+                <td class="px-4 py-2 ancho">
+                  <input
+                    class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700 inputCoords"
+                    type="number"
+                    v-model="z"
+                  />
+                </td>
+                <td class="px-4 py-2 ancho">
+                  Rango minimo
+                </td>
+                <td class="px-4 py-2">
+                  <button
+                    class="button-coords border-panel-normal hover:text-gray-500"
+                    @click="callTriggerPosition(punto)"
+                  >
+                    Coordenadas Actuales
+                  </button>
+                  <button
+                    class="button-coords border-panel-normal hover:text-gray-500 mt-4"
+                    @click="createPoint(x, y, z, punto)"
+                  >
+                    Crear punto
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -223,6 +305,10 @@ export default {
       rankLabel: "",
       rankName: "",
       rankMoney: "",
+      x: 0,
+      y: 0,
+      z: 0,
+      punto: ""
     };
   },
   async mounted() {
@@ -230,9 +316,23 @@ export default {
     return (
       (this.nameFaction = this.singleFaction._name),
       (this.labelFaction = this.singleFaction._label)
+      
     );
   },
   methods: {
+    createPoint: function(x,y,z,punto){
+      /* // eslint-disable-next-line no-undef
+        mp.trigger("callServerEvent","crearCoords",{name: nombre, type: punto, pos: {x: x, y: y, z: z}, minRank: rango(id del rank) , station: garage o false}); */
+        console.log(x,y,z,punto);
+    },
+    callTriggerPosition: function (punto){
+      console.log(punto)
+      /* // eslint-disable-next-line no-undef
+          mp.trigger("getPosition"); */
+      this.x = this.$store.state.coords.data.x;
+      this.y = this.$store.state.coords.data.y;
+      this.z = this.$store.state.coords.data.z;
+    },
     rankCreated: function (name, label, money) {
       if (
         name.trim() !== "" &&
@@ -374,11 +474,22 @@ input[type="number"]::-webkit-outer-spin-button {
   border: 1px solid #000000;
 }
 
-.margenIzq{
+.margenIzq {
   margin-left: -9rem;
 }
-.margenIzqContenido{
+
+.margenIzqContenido {
   margin-left: 18rem;
+}
+
+.inputCoords {
+  width: 109px;
+}
+
+.button-coords {
+  width: 151px;
+  height: 20px;
+  border: 1px solid #000000;
 }
 </style>
 
