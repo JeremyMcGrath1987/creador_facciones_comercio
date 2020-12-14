@@ -12,46 +12,66 @@
       <div
         class="file-content py-4 flex flex-col w-1/2 separation margenIzqContenido"
       >
-        <div class="file-content p-4 flex flex-col w-full">
-          <table class="border-b border-panel-dark">
-            <tbody>
-              <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">NOMBRE EMPRESA</td>
-              </tr>
-              <tr class="border-l border-r border-panel-dark">
-                <td class="px-4 py-2">
-                  <input
-                    class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
-                    type="text"
-                    v-model="labelFaction"
-                    placeholder="INTRODUCE NOMBRE RANGO"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="containerNames">
+          <div class="file-content p-4 flex flex-col containerFloat">
+            <table class="border-b border-panel-dark">
+              <tbody>
+                <tr class="border border-panel-dark font-bold bg-panel-dark">
+                  <td class="px-4 py-2">NOMBRE EMPRESA</td>
+                  <td></td>
+                </tr>
+                <tr class="border-l border-r border-panel-dark">
+                  <td class="px-4 py-2">
+                    <input
+                      class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
+                      type="text"
+                      v-model="labelFaction"
+                      placeholder="INTRODUCE NOMBRE RANGO"
+                    />
+                  </td>
+                  <td class="px-4 py-2">
+                    <button
+                      class="button-changeNames border-panel-normal hover:text-gray-500"
+                      @click="changeLabel(nameFaction, labelFaction)"
+                    >
+                      ACTUALIZAR NOMBRE
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="file-content p-4 flex flex-col w-1/2">
+            <table class="border-b border-panel-dark">
+              <tbody>
+                <tr class="border border-panel-dark font-bold bg-panel-dark">
+                  <td class="px-4 py-2">NOMBRE EMPRESA abreviado</td>
+                  <td></td>
+                </tr>
+                <tr class="border-l border-r border-panel-dark">
+                  <td class="px-4 py-2">
+                    <input
+                      class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
+                      type="text"
+                      v-model="nameFaction"
+                      placeholder="INTRODUCE NOMBRE RANGO ABREVIADO"
+                    />
+                  </td>
+                  <td class="px-4 py-2">
+                    <button
+                      class="button-changeNames border-panel-normal hover:text-gray-500"
+                      @click="changeName(nameFaction, labelFaction)"
+                    >
+                      ACTUALIZAR ABREVIADO
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="file-content p-4 flex flex-col w-full">
-          <table class="border-b border-panel-dark">
-            <tbody>
-              <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">NOMBRE EMPRESA abreviado</td>
-              </tr>
-              <tr class="border-l border-r border-panel-dark">
-                <td class="px-4 py-2">
-                  <input
-                    class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
-                    type="text"
-                    v-model="nameFaction"
-                    placeholder="INTRODUCE NOMBRE RANGO ABREVIADO"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+
         <div class="file-content p-4 flex flex-col w-full margenIzq">
-          <!-- <label> CREAR RANGO:</label> -->
           <table class="border-b border-panel-dark">
             <tbody>
               <tr class="border border-panel-dark font-bold bg-panel-dark">
@@ -97,94 +117,96 @@
             </tbody>
           </table>
         </div>
-        <div class="file-content p-4 flex flex-col w-1/2 ml-20">
-          <table
-            class="border-b border-panel-dark"
-            v-if="
-              Array.isArray(singleFaction._ranks) &&
-              singleFaction._ranks.length > 0
-            "
-          >
-            <tbody>
-              <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">Rango</td>
-                <td class="px-4 py-2">Sueldo</td>
-                <td></td>
-              </tr>
-              <tr
-                class="border-l border-r border-panel-dark"
-                v-for="(rango, index) in singleFaction._ranks"
-                :key="index"
-              >
-                <td class="px-4 py-2">{{ rango.label }}</td>
-                <td class="px-4 py-2 w-1/6">
-                  {{ formatPrice(rango.money) }} $
-                </td>
-                <td class="px-4 py-2 w-1/6">
-                  <button
-                    class="button_rank border-panel-light hover:text-gray-500"
-                    @click="
-                      (editRank = true),
-                        (categoryRank = rango.id),
-                        (labelRank = rango.label),
-                        (indice = index)
-                    "
-                  >
-                    EDITAR RANGO
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="border-panel-dark" v-else>
-            <tbody>
-              <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">Rango</td>
-                <td class="px-4 py-2">Sueldo</td>
-                <td></td>
-              </tr>
-              <div class="px-4 py-2 w-56"><p>no hay rangos creados.</p></div>
-            </tbody>
-          </table>
-        </div>
-        <div class="file-content p-4 flex flex-col w-1/2 ml-32">
-          <table
-            class="border-b border-panel-dark"
-            v-if="Object.keys(singleFaction._spawnVehicles).length > 0"
-          >
-            <tbody>
-              <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">Garajes</td>
-                <td></td>
-              </tr>
-              <tr
-                class="border-l border-r border-panel-dark"
-                v-for="(value, key, index) in singleFaction._spawnVehicles"
-                :key="index"
-              >
-                <td class="px-4 py-2">{{ key }}</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="border-panel-dark" v-else>
-            <tbody>
-              <tr class="border border-panel-dark font-bold bg-panel-dark">
-                <td class="px-4 py-2">Garajes</td>
-                <td></td>
-              </tr>
-              <div class="px-4 py-2 w-56"><p>no hay garajes.</p></div>
-            </tbody>
-          </table>
+        <div class="prueba2">
+          <div class="file-content p-4 flex flex-col prueba3">
+            <table
+              class="border-b border-panel-dark"
+              v-if="
+                Array.isArray(singleFaction._ranks) &&
+                singleFaction._ranks.length > 0
+              "
+            >
+              <tbody>
+                <tr class="border border-panel-dark font-bold bg-panel-dark">
+                  <td class="px-4 py-2">Rango</td>
+                  <td class="px-4 py-2">Sueldo</td>
+                  <td></td>
+                </tr>
+                <tr
+                  class="border-l border-r border-panel-dark"
+                  v-for="(rango, index) in singleFaction._ranks"
+                  :key="index"
+                >
+                  <td class="px-4 py-2">{{ rango.label }}</td>
+                  <td class="px-4 py-2 w-1/6">
+                    {{ formatPrice(rango.money) }} $
+                  </td>
+                  <td class="px-4 py-2 w-1/6">
+                    <button
+                      class="button_rank border-panel-light hover:text-gray-500"
+                      @click="
+                        (editRank = true),
+                          (categoryRank = rango.id),
+                          (labelRank = rango.label),
+                          (indice = index)
+                      "
+                    >
+                      EDITAR RANGO
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="border-panel-dark" v-else>
+              <tbody>
+                <tr class="border border-panel-dark font-bold bg-panel-dark">
+                  <td class="px-4 py-2">Rango</td>
+                  <td class="px-4 py-2">Sueldo</td>
+                  <td></td>
+                </tr>
+                <div class="px-4 py-2 w-56"><p>no hay rangos creados.</p></div>
+              </tbody>
+            </table>
+          </div>
+          <div class="file-content p-4 flex flex-col prueba1">
+            <table
+              class="border-b border-panel-dark"
+              v-if="Object.keys(singleFaction._spawnVehicles).length > 0"
+            >
+              <tbody>
+                <tr class="border border-panel-dark font-bold bg-panel-dark">
+                  <td class="px-4 py-2">Garajes</td>
+                  <td></td>
+                </tr>
+                <tr
+                  class="border-l border-r border-panel-dark"
+                  v-for="(value, key, index) in singleFaction._spawnVehicles"
+                  :key="index"
+                >
+                  <td class="px-4 py-2">{{ key }}</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="border-panel-dark" v-else>
+              <tbody>
+                <tr class="border border-panel-dark font-bold bg-panel-dark">
+                  <td class="px-4 py-2">Garajes</td>
+                  <td></td>
+                </tr>
+                <div class="px-4 py-2 w-56"><p>no hay garajes.</p></div>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="file-content p-4 flex flex-col w-full margenIzq">
           <table class="border-b border-panel-dark">
             <tbody>
               <tr class="border border-panel-dark font-bold bg-panel-dark">
                 <td class="px-4 py-2">Tipo de punto</td>
-                <td class="px-4 py-2">Coordenadas X</td>
-                <td class="px-4 py-2">Coordenadas Y</td>
-                <td class="px-4 py-2">Coordenadas Z</td>
+                <td class="px-4 py-2">Coord X</td>
+                <td class="px-4 py-2">Coord Y</td>
+                <td class="px-4 py-2">Coord Z</td>
                 <td class="px-4 py-2 ancho">Rango Mínimo</td>
                 <td></td>
               </tr>
@@ -252,7 +274,18 @@
                   />
                 </td>
                 <td class="px-4 py-2 ancho">
-                  Rango minimo
+                  <div
+                    class="w-32"
+                    v-for="(rango, key, index) in singleFaction._ranks"
+                    :key="index"
+                  >
+                    <input
+                      type="radio"
+                      v-model="rankId"
+                      v-bind:value="rango.id"
+                    />
+                    {{ rango.label }}
+                  </div>
                 </td>
                 <td class="px-4 py-2">
                   <button
@@ -308,7 +341,8 @@ export default {
       x: 0,
       y: 0,
       z: 0,
-      punto: ""
+      punto: "",
+      rankId: 0,
     };
   },
   async mounted() {
@@ -316,17 +350,22 @@ export default {
     return (
       (this.nameFaction = this.singleFaction._name),
       (this.labelFaction = this.singleFaction._label)
-      
     );
   },
   methods: {
-    createPoint: function(x,y,z,punto){
+    changeName: function(name, label) {
+      console.log(name, label)
+    },
+    changeLabel: function(name, label) {
+      console.log(name, label)
+    },
+    createPoint: function (x, y, z, punto) {
       /* // eslint-disable-next-line no-undef
         mp.trigger("callServerEvent","crearCoords",{name: nombre, type: punto, pos: {x: x, y: y, z: z}, minRank: rango(id del rank) , station: garage o false}); */
-        console.log(x,y,z,punto);
+      console.log({ id: this.rankId, type: punto, pos: { x: x, y: y, z: z } });
     },
-    callTriggerPosition: function (punto){
-      console.log(punto)
+    callTriggerPosition: function (punto) {
+      console.log(punto);
       /* // eslint-disable-next-line no-undef
           mp.trigger("getPosition"); */
       this.x = this.$store.state.coords.data.x;
@@ -368,6 +407,21 @@ export default {
 };
 </script>
 <style lang="scss">
+.containerNames {
+  width: 59rem;
+  margin-left: -9rem;
+}
+.containerFloat {
+  float: left;
+  width: 28rem;
+  margin-left: -1rem;
+}
+
+.button-changeNames {
+  width: 166px;
+  height: 20px;
+  border: 1px solid #000000;
+}
 .file-details {
   li {
     border: none;
@@ -483,13 +537,24 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .inputCoords {
-  width: 109px;
+  width: 75px;
 }
 
 .button-coords {
   width: 151px;
   height: 20px;
   border: 1px solid #000000;
+}
+.prueba1 {
+  width: 17rem;
+}
+.prueba2 {
+  width: 45rem;
+  margin-left: -75px;
+}
+.prueba3 {
+  width: 28rem;
+  float: left;
 }
 </style>
 

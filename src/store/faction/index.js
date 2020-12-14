@@ -19,7 +19,30 @@ export default {
       _name: "gutang",
       _label: "Taller Gutang",
       _ranks: [
-        
+        {
+          name: "jefe",
+          label: "Jefe Taller",
+          money: 789,
+          id: 45
+        },
+        {
+          name: "jefe",
+          label: "JfeTa",
+          money: 789,
+          id: 5
+        },
+        {
+          name: "jefe",
+          label: "er",
+          money: 789,
+          id: 4
+        },
+        {
+          name: "jefe",
+          label: "Taller",
+          money: 789,
+          id: 1
+        },
       ],
       _spawnVehicles: {
         Los_Santos: [],
