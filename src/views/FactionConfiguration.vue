@@ -297,7 +297,7 @@
                 <td class="px-4 py-2">
                   <button
                     class="button-coords border-panel-normal hover:text-gray-500"
-                    @click="callTriggerPosition(punto)"
+                    @click="callTriggerPosition()"
                   >
                     Coordenadas Actuales
                   </button>
@@ -347,15 +347,9 @@
         <div class="w-250 text-center">
           <button
             class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-2 border border-panel-light hover:border-gray-500 w-64"
-          >
-            ACEPTAR EDITADO
-          </button>
-
-          <button
-            class="flex-shrink-0 bg-panel-light hover:bg-gray-500 text-gray-800 py-2 px-2 border border-panel-light hover:border-gray-500 w-64 ml-4"
             @click="goto('FactionList')"
           >
-            CANCELAR EDITADO
+            INICIO
           </button>
         </div>
       </div>
@@ -403,21 +397,12 @@ export default {
 
       if(punto !== undefined & x !== "" & y !== "" & z !== "" & this.rankId !== undefined){
         if (punto === "garaje") {
-          /* await mp.trigger("callServerEvent","crearStation",{name: this.singleFaction._name, station: station}); */
-          console.log("await mp.trigger('callServerEvent','crearStation',{name: this.singleFaction._name, station: station});");
+          // eslint-disable-next-line no-undef
+          await mp.trigger("callServerEvent","crearStation",{name: this.singleFaction._name, station: station});
         }
         if (punto !== "garaje") station = false;
-
-        /* // eslint-disable-next-line no-undef
-          mp.trigger("callServerEvent","crearCoords",{name: this.singleFaction._name, type: punto, pos: {x: x, y: y, z: z}, minRank: this.rankId , station: station}); */
-
-        console.log({
-          name: this.singleFaction._name,
-          type: punto,
-          pos: { x: x, y: y, z: z },
-          minRank: this.rankId,
-          station: station,
-        });
+        // eslint-disable-next-line no-undef
+        await mp.trigger("callServerEvent","crearCoords",{name: this.singleFaction._name, type: punto, pos: {x: x, y: y, z: z}, minRank: this.rankId , station: station});
       }
       this.station = "";
       this.punto = undefined;
@@ -426,10 +411,9 @@ export default {
       this.y = 0;
       this.z = 0;
     },
-    callTriggerPosition: function (punto) {
-      console.log(punto);
-      /* // eslint-disable-next-line no-undef
-          mp.trigger("getPosition"); */
+    callTriggerPosition: function () {
+      // eslint-disable-next-line no-undef
+      mp.trigger("getPosition");
       this.x = this.$store.state.coords.data.x;
       this.y = this.$store.state.coords.data.y;
       this.z = this.$store.state.coords.data.z;
@@ -446,8 +430,8 @@ export default {
           money: parseInt(money),
         };
         this.$store.dispatch("RANKCREATED", rank); */
-        /* // eslint-disable-next-line no-undef
-          mp.trigger("callServerEvent","crearRank",{name: name, label: label, money: parseInt(money)}); */
+        // eslint-disable-next-line no-undef
+          mp.trigger("callServerEvent","crearRank",{name: name, label: label, money: parseInt(money)});
         this.rankLabel = "";
         this.rankName = "";
         this.rankMoney = "";

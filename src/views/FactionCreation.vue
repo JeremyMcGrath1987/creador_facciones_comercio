@@ -101,8 +101,8 @@ export default {
           label: label
         };
         this.$store.dispatch("EDITNAME", faction); */
-        /* // eslint-disable-next-line no-undef
-          await mp.trigger("callServerEvent","crearFaccion",{name: name , label: label}); */
+        // eslint-disable-next-line no-undef
+        await mp.trigger("callServerEvent","crearFaccion",{name: name , label: label});
         this.success = true;
       }
     },

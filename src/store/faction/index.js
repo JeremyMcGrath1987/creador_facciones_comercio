@@ -14,71 +14,13 @@ moment.locale("en", {
 export default {
   state: {
     data:
-    {
-      _id: 2,
-      _name: "gutang",
-      _label: "Taller Gutang",
-      _ranks: [
-        {
-          name: "jefe",
-          label: "Jefe Taller",
-          money: 789,
-          id: 45
-        },
-        {
-          name: "jefe",
-          label: "JfeTa",
-          money: 789,
-          id: 5
-        },
-        {
-          name: "jefe",
-          label: "er",
-          money: 789,
-          id: 4
-        },
-        {
-          name: "jefe",
-          label: "Taller",
-          money: 789,
-          id: 1
-        },
-      ],
-      _spawnVehicles: {
-        Los_Santos: [],
-        Station2: [],
-        Station3: []
-      },
-      _money: 456150,
-      _inventory: {
-        _name: "Almacén",
-        _inventory: {
-          _slots: 500,
-          _availableSlots: 470,
-          _items: [
-            
-          ]
-        },
-        _maxWeight: 500
-      },
-      _coords: [
-        {
-          type: "inventario",
-          pos: {x: 487, y:87978, z:4566456},
-          minRank: 0,
-          station: false
-        },
-        {
-          type: "garaje",
-          pos: {x: 4587, y:8797, z:4556},
-          minRank: 0,
-          station: false
-        }
-      ]
-    }
+    {}
 
   },
   actions: {
+    SETFACTION:(context, faction) => {
+      context.commit("setFaction", faction);
+    },
     EDITRANK: (context, rank) => {
       context.commit("editRank", rank);
     },
@@ -90,6 +32,9 @@ export default {
     },
   },
   mutations: {
+    setFaction: (state, faction) => {
+      state.data = faction;
+    },
     editRank: (state, rank) => {
       state.data._ranks[rank.index].money = rank.money;
       state.data._ranks[rank.index].label = rank.label;

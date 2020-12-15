@@ -31,7 +31,7 @@ export default {
   methods: {
     closePanel: function() {
       // eslint-disable-next-line no-undef
-        mp.trigger("closePanelGang");
+        mp.trigger("closeTablet");
     }
   }
 };
