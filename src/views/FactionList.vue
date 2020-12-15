@@ -87,7 +87,7 @@ export default {
   async mounted() {
     /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
     /* // eslint-disable-next-line no-undef
-    mp.trigger("callServerEvent","getAllFactions"); */
+    await mp.trigger("callServerEvent","getAllFactions"); */
     await this.$store.dispatch("loadingScreen/ISLOADING", false);
   },
   computed: {
@@ -102,7 +102,7 @@ export default {
   methods: {
     factionConfig: async function (id) {
       /* // eslint-disable-next-line no-undef
-      mp.trigger("callServerEvent","getFaccion",{id: id}); */
+      await mp.trigger("callServerEvent","getFaccion",{id: id}); */
       /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
       await this.$router.push({ name: "FactionConfiguration"});
       console.log(id);
@@ -111,6 +111,9 @@ export default {
 };
 </script>
 <style lang="scss">
+button:focus{
+  outline: none
+}
 .file-details {
   li {
     border: none;

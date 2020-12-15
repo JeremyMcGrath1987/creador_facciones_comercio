@@ -1,6 +1,5 @@
 <template>
   <div class="files2 flex flex-col flex-no-wrap">
-    <!-- <topbar /> -->
     <div class="tob-bar flex flex-row items-center w-full mt-8 py-2">
       <h1 class="mx-auto font-bold text-5xl py-2 px-4">creación de empresa</h1>
     </div>
@@ -19,9 +18,6 @@
           ACEPTAR
         </button>
       </div>
-      <!-- <div class="flex flex-wrap p-4">
-        <file-menu active="citizen" />
-      </div> -->
       <div class="file-content p-4 flex flex-col w-full ml-4">
         <table class="border-b border-panel-dark">
           <tbody>
@@ -83,7 +79,7 @@ import singleFaction from "../mixins/singleFaction";
 import formatPrice from "../mixins/formatPrice";
 /* import fileMenu from "../components/fileMenu"; */
 export default {
-  name: "citizen",
+  name: "factionCreation",
   components: {
     /* topbar, */
     /* fileMenu */
@@ -98,17 +94,16 @@ export default {
     };
   },
   methods: {
-    factionCreated: function (name, label) {
+    factionCreated: async function (name, label) {
       if (name.trim() !== "" && label.trim() !== "") {
-        const faction = {
+        /* const faction = {
           name: name,
           label: label
         };
-        console.log(faction);
-        this.$store.dispatch("EDITNAME", faction);
-        this.success = true;
+        this.$store.dispatch("EDITNAME", faction); */
         /* // eslint-disable-next-line no-undef
-          mp.trigger("callServerEvent","crearFaccion",{name: this.name , label: this.label}); */
+          await mp.trigger("callServerEvent","crearFaccion",{name: name , label: label}); */
+        this.success = true;
       }
     },
     goto: async function(route) {
@@ -121,6 +116,9 @@ export default {
 };
 </script>
 <style lang="scss">
+button:focus{
+  outline: none
+}
 .file-details {
   li {
     border: none;

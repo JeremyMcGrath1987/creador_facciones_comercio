@@ -1,9 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    data: {
-      
-    }
+    data: {}
   },
   actions: {
     SETPOS: (context, pos) => {

@@ -70,7 +70,6 @@
             </table>
           </div>
         </div>
-
         <div class="file-content p-4 flex flex-col w-full margenIzq">
           <table class="border-b border-panel-dark">
             <tbody>
@@ -204,6 +203,7 @@
             <tbody>
               <tr class="border border-panel-dark font-bold bg-panel-dark">
                 <td class="px-4 py-2">Tipo de punto</td>
+                <td v-if="punto === 'garaje'">Nombre del Garaje</td>
                 <td class="px-4 py-2">Coord X</td>
                 <td class="px-4 py-2">Coord Y</td>
                 <td class="px-4 py-2">Coord Z</td>
@@ -252,6 +252,13 @@
                     Ropa
                   </div>
                 </td>
+                <td v-if="punto === 'garaje'">
+                  <input
+                    class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700 inputStation"
+                    type="text"
+                    v-model="station"
+                  />
+                </td>
                 <td class="px-4 py-2">
                   <input
                     class="appearance-none border border-panel-dark p-2 focus:outline-none placeholder-gray-300 bg-gray-700 inputCoords"
@@ -296,11 +303,43 @@
                   </button>
                   <button
                     class="button-coords border-panel-normal hover:text-gray-500 mt-4"
-                    @click="createPoint(x, y, z, punto)"
+                    @click="createPoint(x, y, z, punto, station)"
                   >
                     Crear punto
                   </button>
                 </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- CREAR UN V-FOR DE TABLE CON TODAS LAS _COORDS QUE HAYA-->
+        </div>
+        <div class="file-content p-4 flex flex-col w-1/2">
+          <table class="border-b border-panel-dark">
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">Tipo</td>
+                <td class="px-4 py-2">X</td>
+                <td class="px-4 py-2">Y</td>
+                <td class="px-4 py-2">Z</td>
+                <td class="px-4 py-2">Rango</td>
+                <td class="px-4 py-2">Garaje</td>
+                <td class="px-4 py-2"></td>
+              </tr>
+              <tr
+                class="border-l border-r border-panel-dark"
+                v-for="(coords, key, index) in singleFaction._coords"
+                :key="index"
+              >
+                <td class="px-4 py-2">{{ coords.type }}</td>
+                <td class="px-4 py-2">{{ coords.pos.x }}</td>
+                <td class="px-4 py-2">{{ coords.pos.y }}</td>
+                <td class="px-4 py-2">{{ coords.pos.z }}</td>
+                <td class="px-4 py-2">{{ coords.minRank }}</td>
+                <td v-if="coords.station !== false" class="px-4 py-2">
+                  {{ coords.station }}
+                </td>
+                <td v-else class="px-4 py-2"></td>
+                <td class="px-4 py-2"><button>X</button></td>
               </tr>
             </tbody>
           </table>
@@ -341,8 +380,9 @@ export default {
       x: 0,
       y: 0,
       z: 0,
-      punto: "",
-      rankId: 0,
+      punto: undefined,
+      rankId: undefined,
+      station: "",
     };
   },
   async mounted() {
@@ -353,16 +393,38 @@ export default {
     );
   },
   methods: {
-    changeName: function(name, label) {
-      console.log(name, label)
+    changeName: function (name, label) {
+      console.log(name, label);
     },
-    changeLabel: function(name, label) {
-      console.log(name, label)
+    changeLabel: function (name, label) {
+      console.log(name, label);
     },
-    createPoint: function (x, y, z, punto) {
-      /* // eslint-disable-next-line no-undef
-        mp.trigger("callServerEvent","crearCoords",{name: nombre, type: punto, pos: {x: x, y: y, z: z}, minRank: rango(id del rank) , station: garage o false}); */
-      console.log({ id: this.rankId, type: punto, pos: { x: x, y: y, z: z } });
+    createPoint: async function (x, y, z, punto, station) {
+
+      if(punto !== undefined & x !== "" & y !== "" & z !== "" & this.rankId !== undefined){
+        if (punto === "garaje") {
+          /* await mp.trigger("callServerEvent","crearStation",{name: this.singleFaction._name, station: station}); */
+          console.log("await mp.trigger('callServerEvent','crearStation',{name: this.singleFaction._name, station: station});");
+        }
+        if (punto !== "garaje") station = false;
+
+        /* // eslint-disable-next-line no-undef
+          mp.trigger("callServerEvent","crearCoords",{name: this.singleFaction._name, type: punto, pos: {x: x, y: y, z: z}, minRank: this.rankId , station: station}); */
+
+        console.log({
+          name: this.singleFaction._name,
+          type: punto,
+          pos: { x: x, y: y, z: z },
+          minRank: this.rankId,
+          station: station,
+        });
+      }
+      this.station = "";
+      this.punto = undefined;
+      this.rankId = undefined;
+      this.x = 0;
+      this.y = 0;
+      this.z = 0;
     },
     callTriggerPosition: function (punto) {
       console.log(punto);
@@ -378,16 +440,14 @@ export default {
         label.trim() !== "" &&
         parseInt(money.trim()) >= 0
       ) {
-        console.log(name, label, parseInt(money));
-        const rank = {
+        /* const rank = {
           name: name,
           label: label,
           money: parseInt(money),
         };
-        this.$store.dispatch("RANKCREATED", rank);
-        console.log(JSON.stringify(this.singleFaction._ranks));
+        this.$store.dispatch("RANKCREATED", rank); */
         /* // eslint-disable-next-line no-undef
-          mp.trigger("callServerEvent","crearRank",{name: name, label: label, money: money}); */
+          mp.trigger("callServerEvent","crearRank",{name: name, label: label, money: parseInt(money)}); */
         this.rankLabel = "";
         this.rankName = "";
         this.rankMoney = "";
@@ -407,6 +467,9 @@ export default {
 };
 </script>
 <style lang="scss">
+button:focus {
+  outline: none;
+}
 .containerNames {
   width: 59rem;
   margin-left: -9rem;
@@ -543,6 +606,11 @@ input[type="number"]::-webkit-outer-spin-button {
 .button-coords {
   width: 151px;
   height: 20px;
+  border: 1px solid #000000;
+}
+.inputStation {
+  width: 138px;
+  height: 38px;
   border: 1px solid #000000;
 }
 .prueba1 {

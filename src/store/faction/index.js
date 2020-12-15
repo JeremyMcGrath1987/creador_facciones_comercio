@@ -64,7 +64,13 @@ export default {
       _coords: [
         {
           type: "inventario",
-          pos: Object,
+          pos: {x: 487, y:87978, z:4566456},
+          minRank: 0,
+          station: false
+        },
+        {
+          type: "garaje",
+          pos: {x: 4587, y:8797, z:4556},
           minRank: 0,
           station: false
         }
@@ -73,15 +79,6 @@ export default {
 
   },
   actions: {
-    SETGANG: (context, gang) => {
-      context.commit("setGang", gang);
-    },
-    ADDMONEY: (context, money) => {
-      context.commit("addMoney", money);
-    },
-    WITHDRAWMONEY: (context, money) => {
-      context.commit("withdrawMoney", money);
-    },
     EDITRANK: (context, rank) => {
       context.commit("editRank", rank);
     },
@@ -93,20 +90,6 @@ export default {
     },
   },
   mutations: {
-    addMoney: (state, money) => {
-      state.data._money += money;
-    },
-    withdrawMoney: (state, money) => {
-      if ((state.data._money - money) < 0) {
-        return false
-      } else {
-        state.data._money -= money;
-      }
-
-    },
-    setGang: (state, gang) => {
-      state.data = gang;
-    },
     editRank: (state, rank) => {
       state.data._ranks[rank.index].money = rank.money;
       state.data._ranks[rank.index].label = rank.label;
