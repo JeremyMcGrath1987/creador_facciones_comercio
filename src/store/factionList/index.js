@@ -4,7 +4,7 @@ export default {
     data: []
   },
   actions: {
-    SETEFACTIONLIST: (context, list) => {
+    SETFACTIONLIST: (context, list) => {
       context.commit("setFactionList", list);
     }
   },

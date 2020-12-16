@@ -35,7 +35,7 @@
               :file="empresa"
             >
               <td></td>
-              <td class="px-2 py-2">{{ empresa.name }}</td>
+              <td class="px-2 py-2">{{ empresa.label }}</td>
               <td class="px-2 py-2">{{ empresa.id }}</td>
               <td class="px-8 py-2">
                 <button
@@ -93,7 +93,7 @@ export default {
   computed: {
     filteredList() {
       return this.$store.state.factionList.data.filter((resultado) => {
-        let d = resultado.name.toLowerCase() + " " + resultado.id.toLowerCase();
+        let d = resultado.label.toLowerCase() + " " + resultado.id;
         let s = this.search.toLowerCase();
         return d.includes(s);
       });
@@ -102,7 +102,7 @@ export default {
   methods: {
     factionConfig: async function (id) {
       // eslint-disable-next-line no-undef
-      await mp.trigger("callServerEvent","getFaccion",{id: id});
+      mp.trigger("callServerEvent","getFaccion",JSON.stringify({id: id}));
       /* await this.$store.dispatch("loadingScreen/ISLOADING", true); */
       await this.$router.push({ name: "FactionConfiguration"});
     },

@@ -26,7 +26,7 @@
                       class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
                       type="text"
                       v-model="labelFaction"
-                      placeholder="INTRODUCE NOMBRE RANGO"
+                      placeholder="INTRODUCE NOMBRE"
                     />
                   </td>
                   <td class="px-4 py-2">
@@ -54,7 +54,7 @@
                       class="appearance-none border border-panel-dark w-full p-2 focus:outline-none placeholder-gray-300 bg-gray-700"
                       type="text"
                       v-model="nameFaction"
-                      placeholder="INTRODUCE NOMBRE RANGO ABREVIADO"
+                      placeholder="INTRODUCE NOMBRE ABREVIADO"
                     />
                   </td>
                   <td class="px-4 py-2">
@@ -128,8 +128,9 @@
               <tbody>
                 <tr class="border border-panel-dark font-bold bg-panel-dark">
                   <td class="px-4 py-2">Rango</td>
+                  <td class="px-4 py-2">Id</td>
                   <td class="px-4 py-2">Sueldo</td>
-                  <td></td>
+                  <!-- <td></td> -->
                 </tr>
                 <tr
                   class="border-l border-r border-panel-dark"
@@ -137,10 +138,11 @@
                   :key="index"
                 >
                   <td class="px-4 py-2">{{ rango.label }}</td>
+                  <td class="px-4 py-2">{{ rango.id }}</td>
                   <td class="px-4 py-2 w-1/6">
                     {{ formatPrice(rango.money) }} $
                   </td>
-                  <td class="px-4 py-2 w-1/6">
+                  <!-- <td class="px-4 py-2 w-1/6">
                     <button
                       class="button_rank border-panel-light hover:text-gray-500"
                       @click="
@@ -152,7 +154,7 @@
                     >
                       EDITAR RANGO
                     </button>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
@@ -398,11 +400,11 @@ export default {
       if(punto !== undefined & x !== "" & y !== "" & z !== "" & this.rankId !== undefined){
         if (punto === "garaje") {
           // eslint-disable-next-line no-undef
-          await mp.trigger("callServerEvent","crearStation",{name: this.singleFaction._name, station: station});
+          mp.trigger("callServerEvent","crearStation",JSON.stringify({name: this.singleFaction._name, station: station}));
         }
         if (punto !== "garaje") station = false;
         // eslint-disable-next-line no-undef
-        await mp.trigger("callServerEvent","crearCoords",{name: this.singleFaction._name, type: punto, pos: {x: x, y: y, z: z}, minRank: this.rankId , station: station});
+        mp.trigger("callServerEvent","crearCoords",JSON.stringify({name: this.singleFaction._name, type: punto, pos: {x: x, y: y, z: z}, minRank: this.rankId , station: station}));
       }
       this.station = "";
       this.punto = undefined;
@@ -431,7 +433,7 @@ export default {
         };
         this.$store.dispatch("RANKCREATED", rank); */
         // eslint-disable-next-line no-undef
-          mp.trigger("callServerEvent","crearRank",{name: name, label: label, money: parseInt(money)});
+        mp.trigger("callServerEvent","crearRank",JSON.stringify({factionName: this.singleFaction._name,name: name, label: label, money: money}));
         this.rankLabel = "";
         this.rankName = "";
         this.rankMoney = "";
@@ -602,10 +604,10 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .prueba2 {
   width: 45rem;
-  margin-left: -75px;
+  margin-left: -44px;
 }
 .prueba3 {
-  width: 28rem;
+  width: 21rem;
   float: left;
 }
 </style>

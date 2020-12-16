@@ -94,7 +94,7 @@ export default {
     };
   },
   methods: {
-    factionCreated: async function (name, label) {
+    factionCreated: function (name, label) {
       if (name.trim() !== "" && label.trim() !== "") {
         /* const faction = {
           name: name,
@@ -102,7 +102,7 @@ export default {
         };
         this.$store.dispatch("EDITNAME", faction); */
         // eslint-disable-next-line no-undef
-        await mp.trigger("callServerEvent","crearFaccion",{name: name , label: label});
+        mp.trigger("callServerEvent","crearFaccion",JSON.stringify({name: name , label: label}));
         this.success = true;
       }
     },
