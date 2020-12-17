@@ -32,7 +32,7 @@
                   <td class="px-4 py-2">
                     <button
                       class="button-changeNames border-panel-normal hover:text-gray-500"
-                      @click="changeLabel(nameFaction, labelFaction)"
+                      @click="changeNameLabelFaction(nameFaction, labelFaction)"
                     >
                       ACTUALIZAR NOMBRE
                     </button>
@@ -60,7 +60,7 @@
                   <td class="px-4 py-2">
                     <button
                       class="button-changeNames border-panel-normal hover:text-gray-500"
-                      @click="changeName(nameFaction, labelFaction)"
+                      @click="changeNameLabelFaction(nameFaction, labelFaction)"
                     >
                       ACTUALIZAR ABREVIADO
                     </button>
@@ -116,8 +116,8 @@
             </tbody>
           </table>
         </div>
-        <div class="prueba2">
-          <div class="file-content p-4 flex flex-col prueba3">
+        <div class="contenedorRangos">
+          <div class="file-content p-4 flex flex-col flotador">
             <table
               class="border-b border-panel-dark"
               v-if="
@@ -169,7 +169,7 @@
               </tbody>
             </table>
           </div>
-          <div class="file-content p-4 flex flex-col prueba1">
+          <div class="file-content p-4 flex flex-col contenedorGaraje">
             <table
               class="border-b border-panel-dark"
               v-if="Object.keys(singleFaction._spawnVehicles).length > 0"
@@ -253,6 +253,16 @@
                     />
                     Ropa
                   </div>
+                  <div>
+                    <input
+                      class="inline-block"
+                      type="radio"
+                      name="tipo"
+                      v-model="punto"
+                      v-bind:value="'servicio'"
+                    />
+                    Servicio
+                  </div>
                 </td>
                 <td v-if="punto === 'garaje'">
                   <input
@@ -315,7 +325,7 @@
           </table>
           <!-- CREAR UN V-FOR DE TABLE CON TODAS LAS _COORDS QUE HAYA-->
         </div>
-        <div class="file-content p-4 flex flex-col w-1/2">
+        <div v-if="singleFaction._coords.length > 0" class="file-content p-4 flex flex-col w-1/2 marginCoords">
           <table class="border-b border-panel-dark">
             <tbody>
               <tr class="border border-panel-dark font-bold bg-panel-dark">
@@ -343,6 +353,23 @@
                 <td v-else class="px-4 py-2"></td>
                 <td class="px-4 py-2"><button>X</button></td>
               </tr>
+            </tbody>
+          </table>
+          
+        </div>
+        <div v-else class="marginVoidCoords file-content p-4 flex flex-col w-full">
+          <table class="border-panel-dark">
+            <tbody>
+              <tr class="border border-panel-dark font-bold bg-panel-dark">
+                <td class="px-4 py-2">Tipo</td>
+                <td class="px-4 py-2">X</td>
+                <td class="px-4 py-2">Y</td>
+                <td class="px-4 py-2">Z</td>
+                <td class="px-4 py-2">Rango</td>
+                <td class="px-4 py-2">Garaje</td>
+                <td class="px-4 py-2"></td>
+              </tr>
+              <div>NO HAY COORDENADAS CREADAS</div>
             </tbody>
           </table>
         </div>
@@ -389,22 +416,46 @@ export default {
     );
   },
   methods: {
-    changeName: function (name, label) {
-      console.log(name, label);
+    changeNameLabelFaction: function (name, label) {
+      // eslint-disable-next-line no-undef
+      mp.trigger(
+        "callServerEvent",
+        "changeFactionName",
+        JSON.stringify({ id: this.singleFaction._id, name: name, label: label })
+      );
     },
     changeLabel: function (name, label) {
       console.log(name, label);
     },
     createPoint: async function (x, y, z, punto, station) {
-
-      if(punto !== undefined & x !== "" & y !== "" & z !== "" & this.rankId !== undefined){
+      if (
+        (punto !== undefined) &
+        (x !== "") &
+        (y !== "") &
+        (z !== "") &
+        (this.rankId !== undefined)
+      ) {
         if (punto === "garaje") {
           // eslint-disable-next-line no-undef
-          mp.trigger("callServerEvent","crearStation",JSON.stringify({name: this.singleFaction._name, station: station}));
+          mp.trigger(
+            "callServerEvent",
+            "crearStation",
+            JSON.stringify({ name: this.singleFaction._name, station: station })
+          );
         }
         if (punto !== "garaje") station = false;
         // eslint-disable-next-line no-undef
-        mp.trigger("callServerEvent","crearCoords",JSON.stringify({name: this.singleFaction._name, type: punto, pos: {x: x, y: y, z: z}, minRank: this.rankId , station: station}));
+        mp.trigger(
+          "callServerEvent",
+          "crearCoords",
+          JSON.stringify({
+            name: this.singleFaction._name,
+            type: punto,
+            pos: { x: x, y: y, z: z },
+            minRank: this.rankId,
+            station: station,
+          })
+        );
       }
       this.station = "";
       this.punto = undefined;
@@ -433,7 +484,16 @@ export default {
         };
         this.$store.dispatch("RANKCREATED", rank); */
         // eslint-disable-next-line no-undef
-        mp.trigger("callServerEvent","crearRank",JSON.stringify({factionName: this.singleFaction._name,name: name, label: label, money: money}));
+        mp.trigger(
+          "callServerEvent",
+          "crearRank",
+          JSON.stringify({
+            factionName: this.singleFaction._name,
+            name: name,
+            label: label,
+            money: money,
+          })
+        );
         this.rankLabel = "";
         this.rankName = "";
         this.rankMoney = "";
@@ -599,16 +659,22 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 38px;
   border: 1px solid #000000;
 }
-.prueba1 {
+.contenedorGaraje {
   width: 17rem;
 }
-.prueba2 {
+.contenedorRangos {
   width: 45rem;
   margin-left: -44px;
 }
-.prueba3 {
+.flotador {
   width: 21rem;
   float: left;
+}
+.marginCoords {
+  margin-left: -143px;
+}
+.marginVoidCoords {
+  margin-left: -22px;
 }
 </style>
 
